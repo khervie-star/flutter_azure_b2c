@@ -59,6 +59,8 @@ class B2CProviderWeb {
 
   static const String _B2C_PASSWORD_CHANGE = "AADB2C90118";
   static const String _B2C_USER_CANCELLED = "user_cancelled";
+  static const String _B2C_INTERACTION_REQUIRED = "AADB2C90077";
+
   static const String _B2C_PLUGIN_LAST_ACCESS = "b2c_plugin_last_access";
 
   static final DateFormat _format =
@@ -355,7 +357,8 @@ class B2CProviderWeb {
             tag,
             B2COperationSource.POLICY_TRIGGER_SILENTLY,
             B2COperationState.CLIENT_ERROR));
-      } else if (exception is InteractionRequiredAuthException) {
+      } else if (exception is InteractionRequiredAuthException || 
+          exception.message.contains(_B2C_INTERACTION_REQUIRED)) {
         /* Tokens expired or no session, retry with interactive */
         _emitCallback(B2COperationResult(
             tag,
