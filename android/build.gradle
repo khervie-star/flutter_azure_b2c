@@ -2,7 +2,7 @@ group 'com.nodriver.flutter_azure_b2c'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.8.0' // Updated Kotlin version
     repositories {
         google()
         jcenter()
@@ -12,7 +12,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath 'com.android.tools.build:gradle:7.0.2' // Updated AGP version
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -45,21 +45,29 @@ android {
 
     namespace 'com.nodriver.flutter_azure_b2c'
 
-
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
     defaultConfig {
         minSdkVersion 16
     }
 
+    // Set JVM compatibility for Kotlin and Java to 1.8
     kotlinOptions {
-        jvmTarget = "1.8" 
+        jvmTarget = "1.8"
     }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    // Optional: Use Java toolchain to explicitly set Java version
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(8)  // Ensure Java 8 compatibility
+        }
     }
 }
 
