@@ -42,7 +42,6 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 31
-
     namespace 'com.nodriver.flutter_azure_b2c'
 
     sourceSets {
@@ -53,23 +52,27 @@ android {
         minSdkVersion 16
     }
 
-    // Update Kotlin JVM target to match Java 11
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    // Optional: Use Java toolchain to enforce Java 11
+    // Optional but good to lock down
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of(11)
         }
     }
 }
+
+kotlin {
+    jvmToolchain(11)
+}
+
+kotlinOptions {
+    jvmTarget = "11"
+}
+
 
 
 dependencies {
